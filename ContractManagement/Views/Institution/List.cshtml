@@ -1,0 +1,31 @@
+﻿@using ContractManagement.Application.ViewModels.Institutions
+@model ListViewModel
+@{
+    ViewData["Title"] = "Seznam institucí";
+    InstitutionViewModel singleModel = null;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Institutions.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(prop => singleModel.Name)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var institution in Model.Institutions)
+            {
+                <tr>
+                    <td data-labe="Název">@Html.DisplayFor(prop => institution.Name)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-center">Seznam je prázdný</p>
+}

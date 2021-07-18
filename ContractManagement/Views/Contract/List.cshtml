@@ -1,0 +1,84 @@
+﻿@using ContractManagement.Application.ViewModels.Contracts
+@model ListViewModel
+@{
+    ViewData["Title"] = "Seznam smluv";
+    ContractViewModel singleModel = null;
+
+    var institutionSelectItems = new List<SelectListItem>();
+    foreach (var institution in Model.Institutions)
+    {
+        institutionSelectItems.Add(new SelectListItem()
+        {
+            Text = institution.Name,
+            Value = institution.ID.ToString()
+        });
+    }
+    var institutionSelectList = new SelectList(institutionSelectItems, "Value", "Text");
+
+    var clientSelectItems = new List<SelectListItem>();
+    foreach (var client in Model.Clients)
+    {
+        clientSelectItems.Add(new SelectListItem()
+        {
+            Text = client.FullName,
+            Value = client.ID.ToString()
+        });
+    }
+    var clientSelectList = new SelectList(clientSelectItems, "Value", "Text");
+
+    var administratorSelectItems = new List<SelectListItem>();
+    foreach (var administrator in Model.Administrators)
+    {
+        administratorSelectItems.Add(new SelectListItem()
+        {
+            Text = administrator.FullName,
+            Value = administrator.ID.ToString()
+        });
+    }
+    var administratorSelectList = new SelectList(administratorSelectItems, "Value", "Text");
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm("List", "Contract", FormMethod.Get))
+{
+    @Html.DropDownList("institutionId", institutionSelectList, "Všechny instituce")
+    @Html.DropDownList("clientId", clientSelectList, "Všichni klienti")
+    @Html.DropDownList("administratorId", administratorSelectList, "Všechny instituce")
+    <input type="submit" value="Filtrovat" />
+}
+
+@if (Model.Contracts.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(prop => singleModel.RegistrationNumber)</th>
+                <th>@Html.DisplayNameFor(prop => singleModel.Institution)</th>
+                <th>@Html.DisplayNameFor(prop => singleModel.Client)</th>
+                <th>@Html.DisplayNameFor(prop => singleModel.Administrator)</th>
+                <th>@Html.DisplayNameFor(prop => singleModel.ConclusionDate)</th>
+                <th>@Html.DisplayNameFor(prop => singleModel.ValidFromDate)</th>
+                <th>@Html.DisplayNameFor(prop => singleModel.TerminationDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contract in Model.Contracts)
+            {
+                <tr>
+                    <td data-label="Registrační číslo">@Html.ActionLink(contract.RegistrationNumber, "Detail", new { id = contract.ID })</td>
+                    <td data-label="Instituce">@Html.ActionLink(contract.Institution.Name, "Detail", "Institution", new { id = contract.Institution.ID })</td>
+                    <td data-label="Klient">@Html.ActionLink(contract.Client.FullName, "Detail", "Client", new { id = contract.Client.ID })</td>
+                    <td data-label="Správce smlouvy">@Html.ActionLink(contract.Administrator.FullName, "Detail", "Consultant", new { id = contract.Administrator.ID })</td>
+                    <td data-label="Datum uzavření">@Html.DisplayFor(prop => contract.ConclusionDate)</td>
+                    <td data-label="Datum začátku platnosti">@Html.DisplayFor(prop => contract.ValidFromDate)</td>
+                    <td data-label="Datum ukončení">@Html.DisplayFor(prop => contract.TerminationDate)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-center">Seznam je prázdný</p>
+}
