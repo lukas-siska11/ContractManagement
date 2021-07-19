@@ -15,11 +15,11 @@ namespace ContractManagement.Areas.Admin.Controllers
 
         public async Task<IActionResult> Login()
         {
-            var result = await this.authApplicationService.SignIn("Test", "admin");
+            var result = await this.authApplicationService.SignIn("admin", "admin");
 
             if (result == true)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             return View();

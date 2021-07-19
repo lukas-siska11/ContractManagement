@@ -11,6 +11,7 @@ using ContractManagement.Domain.Repositories.Clients;
 using ContractManagement.Domain.Repositories.Consultants;
 using ContractManagement.Domain.Repositories.Contracts;
 using ContractManagement.Domain.Repositories.Institutions;
+using ContractManagement.Domain.Services.Auth;
 using ContractManagement.Domain.Services.Clients;
 using ContractManagement.Domain.Services.Consultants;
 using ContractManagement.Domain.Services.Contracts;
@@ -21,6 +22,7 @@ using ContractManagement.Infrastructure.Repositories.Clients;
 using ContractManagement.Infrastructure.Repositories.Consultants;
 using ContractManagement.Infrastructure.Repositories.Contracts;
 using ContractManagement.Infrastructure.Repositories.Institutions;
+using ContractManagement.Infrastructure.Services.Auth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -74,10 +76,11 @@ namespace ContractManagement
             services.AddScoped<IContractRepository, ContractRepository>();
             services.AddScoped<IInstitutionRepository, InstitutionRepository>();
 
-            // Domain services
+            // Services
             services.AddScoped<ClientCsvExportService>();
             services.AddScoped<ConsultantCsvExportService>();
             services.AddScoped<ContractCsvExportService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +106,11 @@ namespace ContractManagement
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin",
+                    areaName: "Admin",
+                    pattern: "Admin/{controller=Admin}/{action=Login}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
