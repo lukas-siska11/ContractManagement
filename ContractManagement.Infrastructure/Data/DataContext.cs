@@ -6,11 +6,14 @@ using ContractManagement.Infrastructure.Data.Configurations.Clients;
 using ContractManagement.Infrastructure.Data.Configurations.Consultants;
 using ContractManagement.Infrastructure.Data.Configurations.Contracts;
 using ContractManagement.Infrastructure.Data.Configurations.Institutions;
+using ContractManagement.Infrastructure.Identity.Roles;
+using ContractManagement.Infrastructure.Identity.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContractManagement.Infrastructure.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User, Role, int>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -26,6 +29,8 @@ namespace ContractManagement.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new ConsultantConfiguration());
             modelBuilder.ApplyConfiguration(new ContractConfiguration());

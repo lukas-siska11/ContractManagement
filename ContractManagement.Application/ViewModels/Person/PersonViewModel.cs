@@ -2,7 +2,7 @@
 
 namespace ContractManagement.Application.ViewModels.Person
 {
-    public class PersonViewModel
+    public class PersonViewModel : IViewModel
     {
         public int ID { get; set; }
 

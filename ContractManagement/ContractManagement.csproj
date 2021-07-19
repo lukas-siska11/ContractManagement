@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ContractManagement.Infrastructure\ContractManagement.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\" />
+  </ItemGroup>
+
 </Project>

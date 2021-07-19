@@ -24,5 +24,11 @@ namespace ContractManagement.Controllers
             var viewModel = await this.consultantApplicationService.GetConsultantViewModel(id);
             return View(viewModel);
         }
+
+        public async Task<IActionResult> CsvExport()
+        {
+            var csvExportResult = await this.consultantApplicationService.GetCsvExportResult();
+            return File(csvExportResult.Data, csvExportResult.ContentType, csvExportResult.Filename);
+        }
     }
 }

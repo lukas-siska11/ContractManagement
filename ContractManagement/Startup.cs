@@ -1,3 +1,4 @@
+using ContractManagement.Application.ApplicationServices.Auth;
 using ContractManagement.Application.ApplicationServices.Clients;
 using ContractManagement.Application.ApplicationServices.Consultants;
 using ContractManagement.Application.ApplicationServices.Contracts;
@@ -10,7 +11,12 @@ using ContractManagement.Domain.Repositories.Clients;
 using ContractManagement.Domain.Repositories.Consultants;
 using ContractManagement.Domain.Repositories.Contracts;
 using ContractManagement.Domain.Repositories.Institutions;
+using ContractManagement.Domain.Services.Clients;
+using ContractManagement.Domain.Services.Consultants;
+using ContractManagement.Domain.Services.Contracts;
 using ContractManagement.Infrastructure.Data;
+using ContractManagement.Infrastructure.Identity.Roles;
+using ContractManagement.Infrastructure.Identity.Users;
 using ContractManagement.Infrastructure.Repositories.Clients;
 using ContractManagement.Infrastructure.Repositories.Consultants;
 using ContractManagement.Infrastructure.Repositories.Contracts;
@@ -43,7 +49,14 @@ namespace ContractManagement
             //var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("devel"));
             //builder.Password = Configuration["mssqlPasswordDevel"];
 
+            // Identity
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<DataContext>();
+
             // Application services
+            services.AddScoped<IAuthApplicationService, AuthApplicationService>();
             services.AddScoped<IClientApplicationService, ClientApplicationService>();
             services.AddScoped<IConsultantApplicationService, ConsultantApplicationService>();
             services.AddScoped<IContractApplicationService, ContractApplicationService>();
@@ -60,6 +73,11 @@ namespace ContractManagement
             services.AddScoped<IConsultantRepository, ConsultantRepository>();
             services.AddScoped<IContractRepository, ContractRepository>();
             services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+
+            // Domain services
+            services.AddScoped<ClientCsvExportService>();
+            services.AddScoped<ConsultantCsvExportService>();
+            services.AddScoped<ContractCsvExportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +98,7 @@ namespace ContractManagement
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

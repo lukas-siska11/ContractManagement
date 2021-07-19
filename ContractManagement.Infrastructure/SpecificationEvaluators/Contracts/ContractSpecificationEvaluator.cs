@@ -1,5 +1,6 @@
 ﻿using ContractManagement.Domain.Entities.Contracts;
 using ContractManagement.Domain.Specifications.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace ContractManagement.Infrastructure.SpecificationEvaluators.Contracts
@@ -12,20 +13,27 @@ namespace ContractManagement.Infrastructure.SpecificationEvaluators.Contracts
 
             if (specification.Search != null)
             {
-                query = query.Where(contract => contract.RegistrationNumber.Contains(specification.Search));
+                query = query.Where(contract =>
+                    contract.RegistrationNumber.Contains(specification.Search) ||
+                    contract.Institution.Name.Contains(specification.Search) ||
+                    contract.Client.Name.Contains(specification.Search) ||
+                    contract.Client.Surname.Contains(specification.Search) ||
+                    contract.Administrator.Name.Contains(specification.Search) ||
+                    contract.Administrator.Surname.Contains(specification.Search)
+                ); ;
             }
 
-            if (specification.InstitutionID != 0)
+            if (specification.InstitutionID != null)
             {
                 query = query.Where(contract => contract.Institution.ID == specification.InstitutionID);
             }
 
-            if (specification.ClientID != 0)
+            if (specification.ClientID != null)
             {
                 query = query.Where(contract => contract.Client.ID == specification.ClientID);
             }
 
-            if (specification.AdministratorID != 0)
+            if (specification.AdministratorID != null)
             {
                 query = query.Where(contract => contract.Administrator.ID == specification.AdministratorID);
             }

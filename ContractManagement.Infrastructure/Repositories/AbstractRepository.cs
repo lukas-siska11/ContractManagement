@@ -1,5 +1,8 @@
 ﻿using ContractManagement.Domain.Entities;
 using ContractManagement.Domain.Repositories;
+using ContractManagement.Infrastructure.Identity.Roles;
+using ContractManagement.Infrastructure.Identity.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +12,7 @@ namespace ContractManagement.Infrastructure.Repositories
 {
     public abstract class AbstractRepository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity
-        where TContext : DbContext
+        where TContext : IdentityDbContext<User, Role, int>
     {
         protected readonly TContext context;
 

@@ -7,6 +7,7 @@ namespace ContractManagement.Domain.Repositories.Clients
 {
     public interface IClientRepository : IRepository<Client>
     {
+        // TODO: Move to generic repository
         Task<List<Client>> FindAll(ClientSpecification specification);
     }
 }

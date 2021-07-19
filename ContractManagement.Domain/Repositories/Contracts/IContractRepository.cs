@@ -7,6 +7,7 @@ namespace ContractManagement.Domain.Repositories.Contracts
 {
     public interface IContractRepository : IRepository<Contract>
     {
+        // TODO: Move to generic repository
         Task<List<Contract>> FindAll(ContractSpecification specification);
     }
 }

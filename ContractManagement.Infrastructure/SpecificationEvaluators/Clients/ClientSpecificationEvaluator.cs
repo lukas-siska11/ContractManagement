@@ -1,6 +1,5 @@
 ﻿using ContractManagement.Domain.Entities.Clients;
 using ContractManagement.Domain.Specifications.Clients;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace ContractManagement.Infrastructure.SpecificationEvaluators.Clients
@@ -13,7 +12,10 @@ namespace ContractManagement.Infrastructure.SpecificationEvaluators.Clients
 
             if (specification.Search != null)
             {
-                query = query.Where(client => client.Name.Contains(specification.Search) || client.Surname.Contains(specification.Search));
+                query = query.Where(client =>
+                    client.Name.Contains(specification.Search) ||
+                    client.Surname.Contains(specification.Search)
+                );
             }
 
             return query;

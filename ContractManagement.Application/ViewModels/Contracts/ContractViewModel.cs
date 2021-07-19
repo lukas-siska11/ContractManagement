@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ContractManagement.Application.ViewModels.Contracts
 {
-    public class ContractViewModel
+    public class ContractViewModel : IViewModel
     {
         public int ID { get; set; }
 

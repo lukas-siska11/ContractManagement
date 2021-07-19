@@ -2,7 +2,7 @@
 
 namespace ContractManagement.Application.ViewModels.Institutions
 {
-    public class InstitutionViewModel
+    public class InstitutionViewModel : IViewModel
     {
         public int ID { get; set; }
 

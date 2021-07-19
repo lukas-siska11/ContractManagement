@@ -3,49 +3,31 @@
 @{
     ViewData["Title"] = "Seznam smluv";
     ContractViewModel singleModel = null;
-
-    var institutionSelectItems = new List<SelectListItem>();
-    foreach (var institution in Model.Institutions)
-    {
-        institutionSelectItems.Add(new SelectListItem()
-        {
-            Text = institution.Name,
-            Value = institution.ID.ToString()
-        });
-    }
-    var institutionSelectList = new SelectList(institutionSelectItems, "Value", "Text");
-
-    var clientSelectItems = new List<SelectListItem>();
-    foreach (var client in Model.Clients)
-    {
-        clientSelectItems.Add(new SelectListItem()
-        {
-            Text = client.FullName,
-            Value = client.ID.ToString()
-        });
-    }
-    var clientSelectList = new SelectList(clientSelectItems, "Value", "Text");
-
-    var administratorSelectItems = new List<SelectListItem>();
-    foreach (var administrator in Model.Administrators)
-    {
-        administratorSelectItems.Add(new SelectListItem()
-        {
-            Text = administrator.FullName,
-            Value = administrator.ID.ToString()
-        });
-    }
-    var administratorSelectList = new SelectList(administratorSelectItems, "Value", "Text");
 }
 
 <h1>@ViewData["Title"]</h1>
 
+@Html.ActionLink("Exportovat do CSV", "CsvExport")
+
 @using (Html.BeginForm("List", "Contract", FormMethod.Get))
 {
-    @Html.DropDownList("institutionId", institutionSelectList, "Všechny instituce")
-    @Html.DropDownList("clientId", clientSelectList, "Všichni klienti")
-    @Html.DropDownList("administratorId", administratorSelectList, "Všechny instituce")
-    <input type="submit" value="Filtrovat" />
+    <div class="row mt-3 mb-3">
+        <div class="col-md-3 col-sm-12 pr-md-0 mb-sm-2 mb-2">
+            @Html.TextBoxFor(m => m.Search, new { placeholder = "Hledat...", @class = "form-control" })
+        </div>
+        <div class="col-md-2 col-sm-12 p-md-0 pl-md-1 mb-sm-2 mb-2">
+            @Html.DropDownListFor(m => m.InstitutionId, (SelectList)ViewBag.InstitutionSelectList, "Všechny instituce", new { @class = "form-control" })
+        </div>
+        <div class="col-md-2 col-sm-12 p-md-0 pl-md-1 mb-sm-2 mb-2">
+            @Html.DropDownListFor(m => m.ClientId, (SelectList)ViewBag.ClientSelectList, "Všichni klienti", new { @class = "form-control" })
+        </div>
+        <div class="col-md-2 col-sm-12 p-md-0 pl-md-1 mb-sm-2 mb-2">
+            @Html.DropDownListFor(m => m.AdministratorId, (SelectList)ViewBag.AdministratorSelectList, "Všichni správci", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <button type="submit" class="btn btn-primary float-right">Filtrovat</button>
+        </div>
+    </div>
 }
 
 @if (Model.Contracts.Count > 0)
