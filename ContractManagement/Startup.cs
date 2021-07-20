@@ -115,7 +115,7 @@ namespace ContractManagement
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Contract}/{action=List}/{id?}");
             });
         }
     }
