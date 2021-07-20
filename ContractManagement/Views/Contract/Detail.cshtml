@@ -1,8 +1,72 @@
 ﻿@using ContractManagement.Application.ViewModels.Contracts
 @model ContractViewModel
 @{
-    ViewData["Title"] = "Detail smlouvy č. " + Model.RegistrationNumber;
+    ViewData["Title"] = "Detail smlouvy";
 }
 
 <h1>@ViewData["Title"]</h1>
-<p>ID: @Model.ID</p>
+
+<div class="card mt-4">
+    <h5 class="card-header">Základní informace</h5>
+    <div class="card-body">
+        <div class="row margin-bottom">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Registrační číslo:</div>
+                    <div class="col-6">@Model.RegistrationNumber</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Klient:</div>
+                    <div class="col-6">@Html.ActionLink(Model.Client.FullName, "Detail", "Client", new { id = Model.Client.ID })</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Datum uzavření:</div>
+                    <div class="col-6">@Html.DisplayFor(prop => Model.ConclusionDate)</div>
+                </div>
+                <div class="row margin-bottom-lg">
+                    <div class="col-6 font-weight-bold">Datum ukončení:</div>
+                    <div class="col-6">@Html.DisplayFor(prop => Model.TerminationDate)</div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Instituce:</div>
+                    <div class="col-6">@Html.ActionLink(Model.Institution.Name, "Detail", "Institution", new { id = Model.Institution.ID })</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Správce:</div>
+                    <div class="col-6">@Html.ActionLink(Model.Administrator.FullName, "Detail", "Consultant", new { id = Model.Administrator.ID })</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Datum začátku platnosti:</div>
+                    <div class="col-6">@Html.DisplayFor(prop => Model.ValidFromDate)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <h5 class="card-header">Účastníci</h5>
+    <div class="card-body">
+        <div class="row margin-bottom">
+            <div class="col-lg-12">
+                @if (Model.Consultants.Count > 0)
+                {
+                    @foreach (var consultant in Model.Consultants)
+                    {
+                        <div class="row">
+                            <div class="col-12">@Html.ActionLink(consultant.FullName, "Detail", "Consultant", new { id = consultant.ID })</div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12 text-center">Smlouva nemá žádné účastníky</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

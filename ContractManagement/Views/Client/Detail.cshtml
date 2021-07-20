@@ -1,11 +1,39 @@
 ﻿@using ContractManagement.Application.ViewModels.Clients
 @model ClientViewModel
+@{ 
+    ViewData["Title"] = "Detail klienta";
+}
 
-<h1>Detail klienta</h1>
-<p>ID: @Model.ID</p>
-<p>Jméno: @Model.Name</p>
-<p>Příjmení: @Model.Surname</p>
-<p>Email: @Model.Email</p>
-<p>Telefon: @Model.Phone</p>
-<p>Věk: @Model.Age</p>
-<p>Rodné číslo: @Model.PersonalIdentificationNumber</p>
+<h1>@ViewData["Title"]</h1>
+
+<div class="card mt-4">
+    <h5 class="card-header">Základní informace</h5>
+    <div class="card-body">
+        <div class="row margin-bottom">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Jméno:</div>
+                    <div class="col-6">@Model.FullName</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Telefon:</div>
+                    <div class="col-6">@Model.Phone</div>
+                </div>
+                <div class="row margin-bottom-lg">
+                    <div class="col-6 font-weight-bold">Rodné číslo:</div>
+                    <div class="col-6">@Model.PersonalIdentificationNumber</div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Email:</div>
+                    <div class="col-6">@Model.Email</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 font-weight-bold">Věk:</div>
+                    <div class="col-6">@Model.Age</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -35,6 +35,7 @@ namespace ContractManagement.Application.Mappers.Contracts
             viewModel.ConclusionDate = entity.ConclusionDate;
             viewModel.ValidFromDate = entity.ValidFromDate;
             viewModel.TerminationDate = entity.TerminationDate;
+            viewModel.Consultants = this.consultantMapper.MapMultiple(entity.Consultants);
 
             return viewModel;
         }

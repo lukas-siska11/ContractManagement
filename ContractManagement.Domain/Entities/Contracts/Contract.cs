@@ -22,6 +22,6 @@ namespace ContractManagement.Domain.Entities.Contracts
 
         public DateTime TerminationDate { get; set; }
 
-        public ICollection<Consultant> Consultants { get; set; }
+        public IList<Consultant> Consultants { get; set; }
     }
 }

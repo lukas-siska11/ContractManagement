@@ -38,8 +38,8 @@
             @foreach (var client in Model.Clients)
             {
                 <tr>
-                    <td data-label="Jméno">@Html.DisplayFor(prop => client.Name)</td>
-                    <td data-label="Příjmení">@Html.DisplayFor(prop => client.Surname)</td>
+                    <td data-label="Jméno">@Html.ActionLink(client.Name, "Detail", new { id = client.ID })</td>
+                    <td data-label="Příjmení">@Html.ActionLink(client.Surname, "Detail", new { id = client.ID })</td>
                     <td data-label="Email">@Html.DisplayFor(prop => client.Email)</td>
                     <td data-label="Telefon">@Html.DisplayFor(prop => client.Phone)</td>
                     <td data-label="Věk">@Html.DisplayFor(prop => client.Age)</td>

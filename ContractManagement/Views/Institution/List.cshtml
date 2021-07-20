@@ -19,7 +19,7 @@
             @foreach (var institution in Model.Institutions)
             {
                 <tr>
-                    <td data-label="Název">@Html.DisplayFor(prop => institution.Name)</td>
+                    <td data-label="Název">@Html.ActionLink(institution.Name, "Detail", new { id = institution.ID })</td>
                 </tr>
             }
         </tbody>

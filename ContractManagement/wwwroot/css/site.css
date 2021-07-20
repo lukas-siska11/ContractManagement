@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background: #f5f7fa;
 }
 .footer {
   position: absolute;
@@ -145,5 +146,15 @@ table th {
 
     table td:last-child {
         border-bottom: 0;
+    }
+}
+
+.margin-bottom div.row:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width: 992px) {
+    .margin-bottom-lg {
+        margin-bottom: 15px;
     }
 }
