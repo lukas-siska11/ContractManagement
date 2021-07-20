@@ -46,10 +46,12 @@ namespace ContractManagement
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            // TODO: Password as secret value
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("devel")));
-            //var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("devel"));
-            //builder.Password = Configuration["mssqlPasswordDevel"];
+            // DbContext
+            services.AddDbContext<DataContext>(options => {
+                options.UseSqlServer(Configuration
+                    .GetConnectionString("devel")
+                    .Replace("{{password}}", Configuration["mssqlPasswordDevel"]));
+            });
 
             // Identity
             services.AddIdentity<User, Role>(options =>
