@@ -40,10 +40,16 @@ namespace ContractManagement.Application.ApplicationServices.Clients
 
         public async Task<ListViewModel> GetListViewModel(HttpRequest request)
         {
-            var clients = await this.clientRepository.FindAll(this.PrepareSpecificationFromRequest(request));
+            var specification = this.PrepareSpecificationFromRequest(request);
+            var clients = await this.clientRepository.FindAll(specification);
             var listViewModel = this.clientMapper.MapList(clients);
 
             listViewModel.Search = request.Query["Search"].ToString();
+            listViewModel.CurrentPage = (request.Query["Page"].ToString() != "")
+                ? Convert.ToInt32(request.Query["Page"])
+                : 1;
+            listViewModel.PageSize = specification.Limit;
+            listViewModel.Count = await this.clientRepository.Count(specification);
 
             return listViewModel;
         }

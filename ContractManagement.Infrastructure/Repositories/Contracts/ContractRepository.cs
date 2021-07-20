@@ -25,9 +25,24 @@ namespace ContractManagement.Infrastructure.Repositories.Contracts
                 .Include(contract => contract.Consultants);
         }
 
+        public async Task<int> Count(ContractSpecification specification = null)
+        {
+            var query = this.PrepareQuery();
+            if (specification != null)
+            {
+                query = ContractSpecificationEvaluator.Evaluate(query, specification);
+            }
+
+            return await query.CountAsync();
+        }
+
         public async Task<List<Contract>> FindAll(ContractSpecification specification)
         {
-            return await ContractSpecificationEvaluator.Evaluate(this.PrepareQuery(), specification).ToListAsync();
+            // TODO: Move to generic repository
+            var query = this.PrepareQuery().Skip((specification.Page - 1) * specification.Limit)
+                        .Take(specification.Limit);
+
+            return await ContractSpecificationEvaluator.Evaluate(query, specification).ToListAsync();
         }
     }
 }

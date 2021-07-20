@@ -5,6 +5,7 @@ using ContractManagement.Infrastructure.Data;
 using ContractManagement.Infrastructure.SpecificationEvaluators.Consultants;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ContractManagement.Infrastructure.Repositories.Consultants
@@ -15,9 +16,24 @@ namespace ContractManagement.Infrastructure.Repositories.Consultants
         {
         }
 
+        public async Task<int> Count(ConsultantSpecification specification = null)
+        {
+            var query = this.PrepareQuery();
+            if (specification != null)
+            {
+                query = ConsultantSpecificationEvaluator.Evaluate(query, specification);
+            }
+
+            return await query.CountAsync();
+        }
+
         public async Task<List<Consultant>> FindAll(ConsultantSpecification specification)
         {
-            return await ConsultantSpecificationEvaluator.Evaluate(this.PrepareQuery(), specification).ToListAsync();
+            // TODO: Move to generic repository
+            var query = this.PrepareQuery().Skip((specification.Page - 1) * specification.Limit)
+                        .Take(specification.Limit);
+
+            return await ConsultantSpecificationEvaluator.Evaluate(query, specification).ToListAsync();
         }
     }
 }

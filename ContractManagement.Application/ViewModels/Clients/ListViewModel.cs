@@ -2,7 +2,7 @@
 
 namespace ContractManagement.Application.ViewModels.Clients
 {
-    public class ListViewModel : IViewModel
+    public class ListViewModel : PaginationViewModel, IViewModel
     {
         public IList<ClientViewModel> Clients { get; set; }
 

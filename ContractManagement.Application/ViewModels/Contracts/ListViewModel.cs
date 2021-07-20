@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ContractManagement.Application.ViewModels.Contracts
 {
-    public class ListViewModel : IViewModel
+    public class ListViewModel : PaginationViewModel, IViewModel
     {
         public IList<ContractViewModel> Contracts { get; set; }
 

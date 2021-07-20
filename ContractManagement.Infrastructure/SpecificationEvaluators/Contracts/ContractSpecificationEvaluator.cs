@@ -9,8 +9,6 @@ namespace ContractManagement.Infrastructure.SpecificationEvaluators.Contracts
     {
         public static IQueryable<Contract> Evaluate(IQueryable<Contract> query, ContractSpecification specification)
         {
-            query = EvaluatePagination(query, specification);
-
             if (specification.Search != null)
             {
                 query = query.Where(contract =>

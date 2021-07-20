@@ -2,7 +2,7 @@
 
 namespace ContractManagement.Application.ViewModels.Consultants
 {
-    public class ListViewModel : IViewModel
+    public class ListViewModel : PaginationViewModel, IViewModel
     {
         public IList<ConsultantViewModel> Consultants { get; set; }
 

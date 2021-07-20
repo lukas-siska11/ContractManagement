@@ -9,5 +9,8 @@ namespace ContractManagement.Domain.Repositories.Contracts
     {
         // TODO: Move to generic repository
         Task<List<Contract>> FindAll(ContractSpecification specification);
+
+        // TODO: Move to generic repository
+        Task<int> Count(ContractSpecification specification = null);
     }
 }

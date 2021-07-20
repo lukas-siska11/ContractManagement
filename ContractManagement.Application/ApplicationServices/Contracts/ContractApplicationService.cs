@@ -52,9 +52,10 @@ namespace ContractManagement.Application.ApplicationServices.Contracts
 
         public async Task<ListViewModel> GetListViewModel(HttpRequest request)
         {
+            var specification = this.PrepareSpecificationFromRequest(request);
             var administrators = await this.consultantRepository.FindAll();
             var clients = await this.clientRepository.FindAll();
-            var contracts = await this.contractRepository.FindAll(this.PrepareSpecificationFromRequest(request));
+            var contracts = await this.contractRepository.FindAll(specification);
             var institutions = await this.institutionRepository.FindAll();
 
             var listViewModel = this.contractMapper.MapList(contracts, clients, administrators, institutions);
@@ -63,6 +64,11 @@ namespace ContractManagement.Application.ApplicationServices.Contracts
             listViewModel.ClientId = request.Query["ClientId"].ToString();
             listViewModel.AdministratorId = request.Query["AdministratorId"].ToString();
             listViewModel.Search = request.Query["Search"].ToString();
+            listViewModel.CurrentPage = (request.Query["Page"].ToString() != "")
+                ? Convert.ToInt32(request.Query["Page"])
+                : 1;
+            listViewModel.PageSize = specification.Limit;
+            listViewModel.Count = await this.contractRepository.Count(specification);
 
             return listViewModel;
         }
