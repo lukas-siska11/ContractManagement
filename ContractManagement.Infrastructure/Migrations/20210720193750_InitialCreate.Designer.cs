@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContractManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210719161639_InitialCreate")]
+    [Migration("20210720193750_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,21 +20,6 @@ namespace ContractManagement.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ConsultantContract", b =>
-                {
-                    b.Property<int>("ConsultantsID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContractsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ConsultantsID", "ContractsID");
-
-                    b.HasIndex("ContractsID");
-
-                    b.ToTable("ContractConsultants");
-                });
 
             modelBuilder.Entity("ContractManagement.Domain.Entities.Clients.Client", b =>
                 {
@@ -156,6 +141,21 @@ namespace ContractManagement.Infrastructure.Migrations
                     b.HasIndex("InstitutionID");
 
                     b.ToTable("Contracts");
+                });
+
+            modelBuilder.Entity("ContractManagement.Domain.Entities.Contracts.ContractConsultants", b =>
+                {
+                    b.Property<int>("ConsultantID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContractID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ConsultantID", "ContractID");
+
+                    b.HasIndex("ContractID");
+
+                    b.ToTable("ContractConsultants");
                 });
 
             modelBuilder.Entity("ContractManagement.Domain.Entities.Institutions.Institution", b =>
@@ -375,21 +375,6 @@ namespace ContractManagement.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ConsultantContract", b =>
-                {
-                    b.HasOne("ContractManagement.Domain.Entities.Consultants.Consultant", null)
-                        .WithMany()
-                        .HasForeignKey("ConsultantsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ContractManagement.Domain.Entities.Contracts.Contract", null)
-                        .WithMany()
-                        .HasForeignKey("ContractsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ContractManagement.Domain.Entities.Contracts.Contract", b =>
                 {
                     b.HasOne("ContractManagement.Domain.Entities.Consultants.Consultant", "Administrator")
@@ -415,6 +400,25 @@ namespace ContractManagement.Infrastructure.Migrations
                     b.Navigation("Client");
 
                     b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("ContractManagement.Domain.Entities.Contracts.ContractConsultants", b =>
+                {
+                    b.HasOne("ContractManagement.Domain.Entities.Consultants.Consultant", "Consultant")
+                        .WithMany()
+                        .HasForeignKey("ConsultantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ContractManagement.Domain.Entities.Contracts.Contract", "Contract")
+                        .WithMany()
+                        .HasForeignKey("ContractID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consultant");
+
+                    b.Navigation("Contract");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

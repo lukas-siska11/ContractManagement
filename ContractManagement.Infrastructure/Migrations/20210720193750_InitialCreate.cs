@@ -248,21 +248,21 @@ namespace ContractManagement.Infrastructure.Migrations
                 name: "ContractConsultants",
                 columns: table => new
                 {
-                    ConsultantsID = table.Column<int>(type: "int", nullable: false),
-                    ContractsID = table.Column<int>(type: "int", nullable: false)
+                    ContractID = table.Column<int>(type: "int", nullable: false),
+                    ConsultantID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContractConsultants", x => new { x.ConsultantsID, x.ContractsID });
+                    table.PrimaryKey("PK_ContractConsultants", x => new { x.ConsultantID, x.ContractID });
                     table.ForeignKey(
-                        name: "FK_ContractConsultants_Consultants_ConsultantsID",
-                        column: x => x.ConsultantsID,
+                        name: "FK_ContractConsultants_Consultants_ConsultantID",
+                        column: x => x.ConsultantID,
                         principalTable: "Consultants",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ContractConsultants_Contracts_ContractsID",
-                        column: x => x.ContractsID,
+                        name: "FK_ContractConsultants_Contracts_ContractID",
+                        column: x => x.ContractID,
                         principalTable: "Contracts",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -308,9 +308,9 @@ namespace ContractManagement.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContractConsultants_ContractsID",
+                name: "IX_ContractConsultants_ContractID",
                 table: "ContractConsultants",
-                column: "ContractsID");
+                column: "ContractID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contracts_AdministratorID",

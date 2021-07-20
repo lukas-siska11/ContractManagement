@@ -50,7 +50,11 @@ namespace ContractManagement.Infrastructure.Data.Configurations.Contracts
 
             builder.HasMany(contract => contract.Consultants)
                    .WithMany(consultant => consultant.Contracts)
-                   .UsingEntity(join => join.ToTable("ContractConsultants"));
+                   .UsingEntity<ContractConsultants>(
+                        right => right.HasOne(e => e.Consultant).WithMany().HasForeignKey(e => e.ConsultantID),
+                        left => left.HasOne(e => e.Contract).WithMany().HasForeignKey(e => e.ContractID),
+                        join => join.ToTable("ContractConsultants")
+                    );
         }
     }
 }

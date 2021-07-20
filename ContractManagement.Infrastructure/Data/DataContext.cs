@@ -35,6 +35,9 @@ namespace ContractManagement.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ConsultantConfiguration());
             modelBuilder.ApplyConfiguration(new ContractConfiguration());
             modelBuilder.ApplyConfiguration(new InstitutionConfiguration());
+
+            // Seed dummy data
+            new DbInitializer().Seed(modelBuilder);
         }
     }
 }

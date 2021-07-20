@@ -12,9 +12,15 @@ namespace ContractManagement.Domain.Entities.Contracts
 
         public Institution Institution { get; set; }
 
+        public int InstitutionID { get; set; }
+
         public Client Client { get; set; }
 
+        public int ClientID { get; set; }
+
         public Consultant Administrator { get; set; }
+
+        public int AdministratorID { get; set; }
 
         public DateTime ConclusionDate { get; set; }
 
