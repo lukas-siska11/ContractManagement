@@ -31,7 +31,7 @@ namespace ContractManagement.Areas.Admin.Controllers
 
             if (result == true)
             {
-                return RedirectToAction("Privacy", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View();

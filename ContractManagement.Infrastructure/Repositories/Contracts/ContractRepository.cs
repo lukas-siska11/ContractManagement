@@ -39,10 +39,10 @@ namespace ContractManagement.Infrastructure.Repositories.Contracts
         public async Task<List<Contract>> FindAll(ContractSpecification specification)
         {
             // TODO: Move to generic repository
-            var query = this.PrepareQuery().Skip((specification.Page - 1) * specification.Limit)
-                        .Take(specification.Limit);
+            var query = ContractSpecificationEvaluator.Evaluate(this.PrepareQuery(), specification);
 
-            return await ContractSpecificationEvaluator.Evaluate(query, specification).ToListAsync();
+            return await query.Skip((specification.Page - 1) * specification.Limit)
+                .Take(specification.Limit).ToListAsync();
         }
     }
 }

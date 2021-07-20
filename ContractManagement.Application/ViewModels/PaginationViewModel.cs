@@ -11,5 +11,9 @@ namespace ContractManagement.Application.ViewModels
         public int PageSize { get; set; }
 
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+
+        public bool ShowFirst => CurrentPage != 1;
+
+        public bool ShowLast => CurrentPage != TotalPages;
     }
 }
