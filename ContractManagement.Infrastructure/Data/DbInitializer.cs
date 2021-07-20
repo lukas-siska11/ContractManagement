@@ -7,6 +7,7 @@ using System;
 
 namespace ContractManagement.Infrastructure.Data
 {
+    // Defines dummy data which will be part of migrations
     class DbInitializer
     {
         public void Seed(ModelBuilder modelBuilder)

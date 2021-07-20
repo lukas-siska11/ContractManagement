@@ -8,6 +8,7 @@ namespace ContractManagement.Infrastructure.SpecificationEvaluators.Clients
     {
         public static IQueryable<Client> Evaluate(IQueryable<Client> query, ClientSpecification specification)
         {
+            // Multiple properties are supported in client search
             if (specification.Search != null)
             {
                 query = query.Where(client =>

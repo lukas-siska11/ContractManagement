@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContractManagement.Infrastructure.Data
 {
+    // Provides connection to MSSQL database
     public class DataContext : IdentityDbContext<User, Role, int>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -31,6 +32,7 @@ namespace ContractManagement.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure entities
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new ConsultantConfiguration());
             modelBuilder.ApplyConfiguration(new ContractConfiguration());

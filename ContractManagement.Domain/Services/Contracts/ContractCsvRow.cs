@@ -1,5 +1,6 @@
 ﻿namespace ContractManagement.Domain.Services.Contracts
 {
+    // Represents one row in CSV file with contract properties
     public class ContractCsvRow
     {
         public string RegistrationNumber { get; set; }

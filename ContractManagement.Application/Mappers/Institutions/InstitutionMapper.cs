@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace ContractManagement.Application.Mappers.Institutions
 {
+    // Maps entities from domain layer to view models
     public class InstitutionMapper
     {
         public InstitutionViewModel Map(Institution entity)

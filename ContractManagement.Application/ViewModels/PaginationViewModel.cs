@@ -2,6 +2,7 @@
 
 namespace ContractManagement.Application.ViewModels
 {
+    // Represents part of view model with pagination properties
     public class PaginationViewModel
     {
         public int CurrentPage { get; set; } = 1;

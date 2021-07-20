@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace ContractManagement.Application.Mappers.Consultants
 {
+    // Maps entities from domain layer to view models
     public class ConsultantMapper
     {
         public ConsultantViewModel Map(Consultant entity)

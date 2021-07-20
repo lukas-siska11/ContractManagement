@@ -2,6 +2,7 @@
 
 namespace ContractManagement.Domain.Services.Clients
 {
+    // Represents one row in CSV file with client properties
     public class ClientCsvRow : PersonCsvRow
     {
     }

@@ -21,6 +21,7 @@ namespace ContractManagement.Infrastructure.Repositories
             this.context = context;
         }
 
+        // Prepare query before processing (include nested entites, etc..)
         protected virtual IQueryable<TEntity> PrepareQuery()
         {
             return this.context.Set<TEntity>();

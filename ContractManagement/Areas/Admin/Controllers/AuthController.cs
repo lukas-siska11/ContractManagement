@@ -13,6 +13,7 @@ namespace ContractManagement.Areas.Admin.Controllers
             this.authApplicationService = authApplicationService;
         }
 
+        // Redirects to index page if login was successful
         public async Task<IActionResult> Login()
         {
             var result = await this.authApplicationService.SignIn("admin", "admin");
@@ -25,6 +26,7 @@ namespace ContractManagement.Areas.Admin.Controllers
             return View();
         }
 
+        // Redirects to index page if logout was successful
         public async Task<IActionResult> Logout()
         {
             var result = await this.authApplicationService.SignOut();

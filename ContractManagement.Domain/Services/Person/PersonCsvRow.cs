@@ -1,5 +1,6 @@
 ﻿namespace ContractManagement.Domain.Services.Person
 {
+    // Represents one row in CSV file with person properties
     public class PersonCsvRow
     {
         public string Name { get; set; }

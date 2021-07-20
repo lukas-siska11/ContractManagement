@@ -15,6 +15,7 @@ namespace ContractManagement.Controllers
             this.contractApplicationService = contractApplicationService;
         }
 
+        // Returns view with list of contracts and filters based on request
         public async Task<IActionResult> List()
         {
             var viewModel = await this.contractApplicationService.GetListViewModel(this.Request);
@@ -55,12 +56,14 @@ namespace ContractManagement.Controllers
             return View(viewModel);
         }
 
+        // Returns view with detail informations about contract with given id
         public async Task<IActionResult> Detail(int id)
         {
             var viewModel = await this.contractApplicationService.GetContractViewModel(id);
             return View(viewModel);
         }
 
+        // Returns CSV file with exported contracts
         public async Task<IActionResult> CsvExport()
         {
             var csvExportResult = await this.contractApplicationService.GetCsvExportResult();

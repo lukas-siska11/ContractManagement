@@ -60,6 +60,7 @@ namespace ContractManagement.Application.ApplicationServices.Contracts
 
             var listViewModel = this.contractMapper.MapList(contracts, clients, administrators, institutions);
 
+            // Set properties from query parameters
             listViewModel.InstitutionId = request.Query["InstitutionId"].ToString();
             listViewModel.ClientId = request.Query["ClientId"].ToString();
             listViewModel.AdministratorId = request.Query["AdministratorId"].ToString();

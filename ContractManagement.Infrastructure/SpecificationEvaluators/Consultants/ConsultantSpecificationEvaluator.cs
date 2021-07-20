@@ -8,6 +8,7 @@ namespace ContractManagement.Infrastructure.SpecificationEvaluators.Consultants
     {
         public static IQueryable<Consultant> Evaluate(IQueryable<Consultant> query, ConsultantSpecification specification)
         {
+            // Multiple properties are supported in consultant search
             if (specification.Search != null)
             {
                 query = query.Where(consultant =>

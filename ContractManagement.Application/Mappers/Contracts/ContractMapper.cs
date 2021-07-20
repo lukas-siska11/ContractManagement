@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace ContractManagement.Application.Mappers.Contracts
 {
+    // Maps entities from domain layer to view models
     public class ContractMapper
     {
         private readonly InstitutionMapper institutionMapper;
